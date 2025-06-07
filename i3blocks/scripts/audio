@@ -1,0 +1,17 @@
+#!/bin/bash
+
+sink=$(pactl get-default-sink)
+case "${BLOCK_BUTTON}" in
+1) pactl set-sink-volume "${sink}" +5% ;;    # Left
+2) pactl set-sink-volume "${sink}" toggle ;; # Left
+3) pactl set-sink-volume "${sink}" -5% ;;    # Left
+esac
+
+volume=$(pactl get-sink-volume "${sink}" | awk '{print $5}' | tr -d '%')
+mute=$(pactl get-sink-mute "${sink}" | awk '{print $2}')
+
+if [[ "${mute}" == "yes" ]]; then
+  echo " off"
+else
+  echo " ${volume}%"
+fi
