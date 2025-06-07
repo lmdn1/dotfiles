@@ -1,0 +1,21 @@
+command=echo "$($HOME/.config/i3blocks/scripts/$BLOCK_NAME)"
+separator_block_width=20
+markup=none
+
+[net]
+interval=5
+
+[audio]
+label=Vol
+interval=60
+
+[battery]
+interval=30
+
+[date]
+command=date '+%Y-%m-%d'
+interval=60
+
+[time]
+command=date '+%H:%M '
+interval=5
