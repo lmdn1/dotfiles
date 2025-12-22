@@ -62,98 +62,101 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Plugins --
-require("lazy").setup({
-  spec = {
-    {
-      "nvim-treesitter/nvim-treesitter",
-      build = ":TSUpdate",
-      opts = {
-        highlight = { enable = true },
-        indent = { enable = true },
-      },
-      ensure_installed = {
-        "python", "rust", "go", "c", "cpp",
-        "javascript", "typescript", "lua", "bash",
-      },
+local plugins = {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    opts = {
+      highlight = { enable = true },
+      indent = { enable = true },
     },
-    { "neovim/nvim-lspconfig" },
-    { "onsails/lspkind.nvim" },
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    {
-      "mason-org/mason-lspconfig.nvim",
-      dependencies = {
-        {"mason-org/mason.nvim", opts = {}},
-        "neovim/nvim-lspconfig",
-      },
-      opts = {},
+  },
+  { "neovim/nvim-lspconfig" },
+  { "onsails/lspkind.nvim" },
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      {"mason-org/mason.nvim", opts = {}},
+      "neovim/nvim-lspconfig",
     },
-    {
-      "nvim-telescope/telescope.nvim",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-fzf-native.nvim",
-      },
-      opts = {
-        defaults = {
-          border = false,
-          layout_strategy = "bottom_pane",
-          sorting_strategy = "ascending",
-          layout_config = {
-            height = 15,
-            prompt_position = "bottom",
-          },
-          mappings = {
-            i = { ["<C-g>"] = "close" },
-            n = { ["<C-g>"] = "close" },
-          },
-          config = function()
-            require("telescope").load_extension("fzf")
-          end,
-        }
-      },
+    opts = {},
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
     },
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
-      opts = {
-        window = {
-          width = 25,
-          mappings = {
-            [ "/" ] = "noop",
-          },
+    opts = {
+      defaults = {
+        border = false,
+        layout_strategy = "bottom_pane",
+        sorting_strategy = "ascending",
+        layout_config = {
+          height = 15,
+          prompt_position = "bottom",
+        },
+        mappings = {
+          i = { ["<C-g>"] = "close" },
+          n = { ["<C-g>"] = "close" },
+        },
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      }
+    },
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    opts = {
+      window = {
+        width = 25,
+        mappings = {
+          [ "/" ] = "noop",
         },
       },
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        "nvim-tree/nvim-web-devicons",
-      },
     },
-    {
-      "stevearc/oil.nvim", opts = {
-        default_file_explorer = false,
-        skip_confirm_for_simple_edits = true,
-      },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
     },
-    { "tpope/vim-surround" },
-    { "tpope/vim-commentary" },
-    { "tpope/vim-fugitive" },
-    { "tpope/vim-sleuth" },
-    { "lewis6991/gitsigns.nvim", opts = {} },
-    { "tribela/vim-transparent" },
-    { "mbbill/undotree" },
-    { "windwp/nvim-autopairs", opts = {}},
-    { "axvr/photon.vim" },
   },
+  {
+    "stevearc/oil.nvim", opts = {
+      default_file_explorer = false,
+      skip_confirm_for_simple_edits = true,
+    },
+  },
+  { "tpope/vim-surround" },
+  { "tpope/vim-commentary" },
+  { "tpope/vim-fugitive" },
+  { "tpope/vim-sleuth" },
+  { "lewis6991/gitsigns.nvim", opts = {} },
+  { "tribela/vim-transparent" },
+  { "mbbill/undotree" },
+  { "windwp/nvim-autopairs", opts = {}},
+  { "axvr/photon.vim" },
+}
+
+-- Local overrides --
+if vim.fn.isdirectory(vim.fn.stdpath("config").."/lua/extra") == 1 then
+  table.insert(plugins, #plugins+1, require("extra"))
+end
+
+require("lazy").setup({
+  spec = plugins,
   defaults = {
     lazy = false,
     version = false,
     news = false,
   },
-  install = {},
+  install = {  },
   checker = { enabled = false },
   performance = {
     rtp = {
@@ -167,6 +170,13 @@ require("lazy").setup({
     }
   }
 })
+
+-- For some reason treesitter doesn't want to install stuff
+-- unless you specify it separately like this?
+require("nvim-treesitter").install {
+  "python", "rust", "go", "c", "cpp",
+  "javascript", "typescript", "lua", "bash",
+}
 
 vim.cmd("colorscheme photon")
 
@@ -198,7 +208,7 @@ cmp.setup({
 })
 
 -- Keymaps --
-local opts = { noremap = true, silent = false }
+local opts = { noremap = true, silent = true }
 local keymaps = {
   {"n", "<leader>h", ":noh<CR>"},
 
