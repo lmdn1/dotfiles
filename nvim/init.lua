@@ -72,11 +72,6 @@ local plugins = {
     },
   },
   { "neovim/nvim-lspconfig" },
-  { "onsails/lspkind.nvim" },
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
@@ -84,6 +79,35 @@ local plugins = {
       "neovim/nvim-lspconfig",
     },
     opts = {},
+  },
+  {
+    "saghen/blink.cmp",
+    build = "cargo build --release",
+    fuzzy = { implementation = "prefer_rust" },
+    opts = {
+      appearance = {
+        use_nvim_cmp_as_default = false,
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        accept = {
+          auto_brackets = { enabled = true },
+        },
+        menu = {
+          draw = { treesitter = { "lsp" } },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+        },
+        ghost_text = { enabled = false },
+      },
+      sources = {
+        default = { "lsp", "path", "buffer" },
+      },
+      cmdline = { enabled = false },
+      keymap = { preset = "enter" },
+    },
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -141,7 +165,12 @@ local plugins = {
   { "tribela/vim-transparent" },
   { "mbbill/undotree" },
   { "windwp/nvim-autopairs", opts = {}},
-  { "axvr/photon.vim" },
+  {
+    "axvr/photon.vim",
+    config = function()
+      vim.cmd("colorscheme photon")
+    end,
+  },
 }
 
 -- Local overrides --
@@ -177,35 +206,6 @@ require("nvim-treesitter").install {
   "python", "rust", "go", "c", "cpp",
   "javascript", "typescript", "lua", "bash",
 }
-
-vim.cmd("colorscheme photon")
-
--- Completions --
-local cmp = require('cmp')
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    [ '<CR>' ] = cmp.mapping.confirm({ select = true }),
-    [ '<Tab>' ] = cmp.mapping.select_next_item(),
-    [ '<S-Tab>' ] = cmp.mapping.select_prev_item(),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'path' },
-  }),
-  formatting = {
-    format = require('lspkind').cmp_format({
-      mode = "text",
-      maxwidth = 40,
-      symbol_map = {},
-    })
-  },
-  window = {
-    completion = {
-      max_height = 15,
-    }
-  },
-})
 
 -- Keymaps --
 local opts = { noremap = true, silent = true }
