@@ -14,6 +14,8 @@ vim.opt.ttyfast = true
 vim.opt.lazyredraw = false
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
+vim.opt.list = true
+vim.opt.listchars = { trail = '·' }
 
 -- Behavior --
 vim.opt.tabstop = 2
@@ -25,7 +27,7 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 8
 vim.opt.timeout = true
-vim.opt.timeoutlen = 250
+vim.opt.timeoutlen = 1000
 vim.opt.updatetime = 250
 vim.opt.wildmenu = true
 vim.opt.wildmode = { "longest:full", "full" }
@@ -160,7 +162,6 @@ local plugins = {
   { "tpope/vim-surround" },
   { "tpope/vim-commentary" },
   { "tpope/vim-fugitive" },
-  { "tpope/vim-sleuth" },
   { "lewis6991/gitsigns.nvim", opts = {} },
   { "tribela/vim-transparent" },
   { "mbbill/undotree" },
