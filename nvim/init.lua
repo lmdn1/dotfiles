@@ -208,6 +208,20 @@ require("nvim-treesitter").install {
   "javascript", "typescript", "lua", "bash",
 }
 
+-- Lua functions --
+local join_existing_term = function()
+  -- Use existing term when available
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and
+       vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
+       vim.cmd("botright 10split")
+       vim.api.nvim_set_current_buf(buf)
+       return
+      end
+  end
+  vim.cmd("botright 10split | terminal")
+end
+
 -- Keymaps --
 local opts = { noremap = true, silent = true }
 local keymaps = {
@@ -227,6 +241,7 @@ local keymaps = {
   { "n", "<leader>-", ":split<CR>" },
   { "n", "<leader>=", ":vsplit<CR>" },
   { "n", "<leader>wq", ":close<CR>" },
+  { "n", "<leader>ww", ":only<CR>" },
 
   -- Seems redundant but arrows don't work
   -- otherwise, despite being bound to hjkl
@@ -243,7 +258,7 @@ local keymaps = {
   { "n", "<S-Up>", ":resize +2<CR>" },
   { "n", "<S-Down>", ":resize -2<CR>" },
 
-  { "n", "<leader>ft", ":botright terminal<CR>" },
+  { "n", "<leader>ft", join_existing_term },
   { "t", "<Esc>", [[<C-\><C-n>]] },
 
   { "n", "gd", vim.lsp.buf.definition },
@@ -265,6 +280,7 @@ local keymaps = {
   { "n", "<leader>bb", ":Telescope buffers<CR>" },
   { "n", "<leader>xx", ":Telescope diagnostics<CR>" },
 
+  { "n", "<leader>gg", ":tabnew | Git | only<CR>" },
   { "n", "<leader>gs", ":Telescope git_status<CR>" },
   { "n", "<leader>gc", ":Git commit<CR>" },
   { "n", "<leader>gv", ":Gvdiffsplit<CR>" },
@@ -285,3 +301,21 @@ for _,v in ipairs(keymaps) do
 end
 
 -- Autocmd --
+vim.api.nvim_create_autocmd("TermClose", {
+  callback = function(a)
+    vim.api.nvim_buf_set_var(a.buf, "should_kill", true)
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  callback = function(a)
+    if vim.api.nvim_buf_get_option(a.buf, "buftype") ~= "terminal" then return end
+    local ok, should_kill = pcall(vim.api.nvim_buf_get_var, a.buf, "should_kill")
+    if not (ok and should_kill) then return end
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(a.buf) then
+        vim.api.nvim_buf_delete(a.buf, { force = true })
+      end
+    end)
+  end,
+})
