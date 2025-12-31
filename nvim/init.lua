@@ -253,13 +253,14 @@ local keymaps = {
   { "n", "<leader>cf", vim.lsp.buf.format },
 
   { "n", "K", vim.lsp.buf.hover },
+  { "n", "L", ":lua vim.diagnostic.open_float(nil, { focus = false })<CR>" },
   { "n", "[g", vim.diagnostic.goto_prev },
   { "n", "]g", vim.diagnostic.goto_next },
-  { "n", "<leader>xx", vim.diagnostic.setloclist },
 
   { "n", "<leader>ff", ":Telescope find_files<CR>" },
   { "n", "<leader>fg", ":Telescope live_grep<CR>" },
   { "n", "<leader>bb", ":Telescope buffers<CR>" },
+  { "n", "<leader>xx", ":Telescope diagnostics<CR>" },
 
   { "n", "<leader>gs", ":Telescope git_status<CR>" },
   { "n", "<leader>gc", ":Git commit<CR>" },
@@ -281,8 +282,3 @@ for _,v in ipairs(keymaps) do
 end
 
 -- Autocmd --
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focus = false })
-  end
-})
