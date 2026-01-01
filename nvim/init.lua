@@ -15,7 +15,10 @@ vim.opt.lazyredraw = false
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.list = true
-vim.opt.listchars = { trail = '·' }
+vim.opt.listchars = {
+  trail = '·',
+  tab = '⇥ '
+}
 
 -- Behavior --
 vim.opt.tabstop = 2
@@ -163,16 +166,13 @@ local plugins = {
   { "tpope/vim-commentary" },
   { "tpope/vim-fugitive" },
   { "lewis6991/gitsigns.nvim", opts = {} },
-  { "tribela/vim-transparent" },
+  -- { "tribela/vim-transparent" },
   { "mbbill/undotree" },
   { "windwp/nvim-autopairs", opts = {}},
-  {
-    "axvr/photon.vim",
-    config = function()
-      vim.cmd("colorscheme photon")
-    end,
-  },
+  { "junegunn/vim-easy-align" },
 }
+
+vim.cmd("colorscheme purple")
 
 -- Local overrides --
 if vim.fn.isdirectory(vim.fn.stdpath("config").."/lua/extra") == 1 then
@@ -233,6 +233,9 @@ local keymaps = {
   { "n", "<Left>", "h" },
   { "n", "<Right>", "l" },
 
+  { "v", "<S-Up>", "k" },
+  { "v", "<S-Down>", "j" },
+
   { "n", "<leader>nn", ":tabnew<CR>" },
   { "n", "<C-M-l>", ":tabnext<CR>" },
   { "n", "<C-M-Right>", ":tabnext<CR>" },
@@ -253,8 +256,8 @@ local keymaps = {
   { "n", "<C-Up>", "<C-w>k" },
   { "n", "<C-l>", "<C-w>l" },
   { "n", "<C-Right>", "<C-w>l" },
-  { "n", "<S-Left>", ":vertical resize -2<CR>" },
-  { "n", "<S-Right>", ":vertical resize +2<CR>" },
+  { "n", "<S-Left>", ":vertical resize +2<CR>" },
+  { "n", "<S-Right>", ":vertical resize -2<CR>" },
   { "n", "<S-Up>", ":resize +2<CR>" },
   { "n", "<S-Down>", ":resize -2<CR>" },
 
@@ -295,6 +298,7 @@ local keymaps = {
   { { "n", "v", "i", "t", "c" }, "<C-g>", "<Esc>" },
   { { "n", "v", "i" }, "<M-x>", "<Esc><cmd>Telescope commands<CR>" },
 
+  { "v", "<leader>a", ":EasyAlign " },
 }
 for _,v in ipairs(keymaps) do
   vim.keymap.set(v[1], v[2], v[3], opts)
