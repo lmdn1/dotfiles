@@ -1,15 +1,16 @@
 #!/bin/bash
-ssid=$(nmcli -t -f active,ssid device wifi | grep '^yes' | cut -d: -f2)
-statefile="/tmp/net_block_state"
 
-if [[ ! -f "${statefile}" ]]; then
-  echo "${ssid}" >${statefile}
-fi
+ssid=$(nmcli -t -f active,ssid device wifi | grep '^yes' | cut -d: -f2)
+ip=$(hostname -I | awk '{print $1}')
+
+statefile="/tmp/net_state_${USER}"
+
+echo "${ip}" >${statefile}
 
 case "${BLOCK_BUTTON}" in
-1) echo "$(hostname -I | awk '{print $1}')" >${statefile} ;;
-2) echo "${ssid}" >${statefile} ;;
-3) echo "$(hostname)" >${statefile} ;;
+  1) echo "${ip}" >${statefile} ;;
+  2) echo "${ssid}" >${statefile} ;;
+  3) echo "$(hostname)" >${statefile} ;;
 esac
 
 cat "${statefile}"

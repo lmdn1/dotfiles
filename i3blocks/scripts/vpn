@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if nmcli connection show --active | grep -q "vpn"; then
+  echo "VPN"
+  echo
+  echo \#4CAF50
+fi

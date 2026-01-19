@@ -44,6 +44,8 @@ bindsym $mod+Control+1 exec --no-startup-id ~/.config/i3/scripts/rename-workspac
 # Rofi open in emacs
 bindsym $mod+Shift+e exec "rofi -modi recursivebrowser -show recursivebrowser --file-browser-dir /home -file-browser-cmd 'emacsclient -n'"
 
+bindsym $mod+Shift+z exec "~/bin/boomer --config ~/.config/boomer"
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -178,27 +180,6 @@ client.urgent           #3A2E40  #291F2D  #888888  #291F2D
 client.placeholder      #900000  #900000  #FFFFFF  #900000
 client.background       #242424
 
-# bar {
-#   id bar-test
-#   height 25
-#   position top
-#   status_command ~/code/github/lmdn/anotherbar/target/debug/anotherbar
-#   tray_padding 1
-#   strip_workspace_numbers yes
-#   colors {
-#     separator  #291F2D
-#     background #291F2D
-#     statusline #B281C1
-
-#     focused_workspace  #291F2D #291F2D #B281C1
-#     active_workspace   #291F2D #291F2D #A05EAC
-#     inactive_workspace #291F2D #291F2D #5F4C6A
-#     urgent_workspace   #291F2D #291F2D #EE829F
-#     binding_mode       #291F2D #B281C1 #3A2E30
-#   }
-#   tray_output none
-# }
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -231,6 +212,9 @@ exec_always --no-startup-id nitrogen --restore
 # Toggle bar
 bindsym $mod+b bar mode toggle
 
+# Allow macos coworkers to lock my screen when I forget
+bindsym Mod1+Control+q exec --no-startup-id "i3lock -c 008080"
+
 bindsym $mod+Control+0 mode "$mode_system"
 set $mode_system System actions: (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
 mode "$mode_system" {
@@ -257,6 +241,16 @@ mode "$power_profile_select" {
   bindsym Escape mode "default"
 }
 
+bindsym $mod+Control+7 mode "$keyboard_select"
+set $keyboard_select Keyboard: (1) GB, (2) US
+mode "$keyboard_select" {
+  bindsym 1 exec --no-startup-id /usr/bin/setxkbmap gb, mode "default"
+  bindsym 2 exec --no-startup-id /usr/bin/setxkbmap us, mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
 # Gaps
 #gaps inner 10
 gaps inner 0
@@ -268,11 +262,13 @@ for_window [class=".*"] border normal
 
 # Float certain windows
 for_window [class="Nemo"] floating enable border normal
+for_window [class="Thunar"] floating enable
 for_window [class="Webapp-manager.py"] floating enable border normal
 for_window [class="Blueman-manager"] floating enable border normal
 for_window [class="Pavucontrol"] floating enable border normal
 for_window [class="Arandr"] floating enable
 for_window [class="org.gnome.FileRoller"] floating enable
+for_window [class="Nitrogen"] floating enable
 
 # Send to scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -285,3 +281,6 @@ bindsym Print exec "flameshot gui"
 
 # Bluetooth
 exec_always blueman-applet
+
+# Auto config displays
+exec_always autorandr
