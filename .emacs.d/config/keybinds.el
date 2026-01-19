@@ -66,13 +66,13 @@
 
 ;; Standard keybinds
 (global-set-key (kbd "C-<left>")
-		(lmdn/evil-n-or-i-command #'left-word #'windmove-left))
+  (lmdn/evil-n-or-i-command #'left-word #'windmove-left))
 (global-set-key (kbd "C-<right>")
-		(lmdn/evil-n-or-i-command #'right-word #'windmove-right))
+  (lmdn/evil-n-or-i-command #'right-word #'windmove-right))
 (global-set-key (kbd "C-<up>")
-		(lmdn/evil-n-or-i-command #'backward-paragraph #'windmove-up))
+  (lmdn/evil-n-or-i-command #'backward-paragraph #'windmove-up))
 (global-set-key (kbd "C-<down>")
-		(lmdn/evil-n-or-i-command #'forward-paragraph #'windmove-down))
+  (lmdn/evil-n-or-i-command #'forward-paragraph #'windmove-down))
 (global-set-key (kbd "C-=") #'lmdn/zoom-in)
 (global-set-key (kbd "C--") #'lmdn/zoom-out)
 (global-set-key (kbd "C-0") #'lmdn/zoom-reset)

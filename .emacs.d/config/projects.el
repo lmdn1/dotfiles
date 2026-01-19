@@ -13,12 +13,12 @@
     (setq lmdn/project-root-directory (projectile-project-root))
     (let ((treemacs-window (treemacs-get-local-window)))
       (when treemacs-window
-	(with-selected-window treemacs-window
-	  (treemacs-quit))))))
+        (with-selected-window treemacs-window
+                              (treemacs-quit))))))
 
 
 (require 'projectile)
 (projectile-mode 1)
 
 (add-hook 'projectile-after-switch-project-hook
-	  #'lmdn/update-root-on-project-switch)
+          #'lmdn/update-root-on-project-switch)

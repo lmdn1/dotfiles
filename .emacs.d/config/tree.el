@@ -16,12 +16,12 @@
   "Open treemacs in the project root directory"
   (interactive)
   (if (treemacs-is-treemacs-window-selected?)
-      (treemacs-quit)
+    (treemacs-quit)
     (let ((default-directory lmdn/project-root-directory))
       (treemacs-add-and-display-current-project-exclusively)
       ;; Ensure we actually switch to the treemacs window
       (when-let ((treemacs-window (treemacs-get-local-window)))
-        (select-window treemacs-window)))))
+                (select-window treemacs-window)))))
 
 (defun lmdn/treemacs-open-here ()
   "Set treemacs root dir and then open it"
@@ -48,20 +48,20 @@
   "Add the currently selected dir as a projectile project"
   (interactive)
   (if (treemacs-current-button)
-      (let* ((node (treemacs-button-get (treemacs-current-button) :path))
-	     (project-dir (if (file-directory-p node)
-			      node
-			    (file-name-directory node))))
-	(when project-dir
-	  ;; Create a .projectile file to mark it as a project
-	  (let ((projectile-file (expand-file-name ".projectile" project-dir)))
-	    (unless (file-exists-p projectile-file)
-	      (write-region "" nil projectile-file)))
-	  (projectile-add-known-project project-dir)
-	  (setq lmdn/project-root-directory project-dir)
-	  (projectile-switch-project-by-name project-dir)
-	  (when (treemacs-is-treemacs-window-selected?)
-	    (treemacs-quit))
-	  (lmdn/treemacs-toggle)
-	(message "Imported project: %s" project-dir)))
+    (let* ((node (treemacs-button-get (treemacs-current-button) :path))
+           (project-dir (if (file-directory-p node)
+                          node
+                          (file-name-directory node))))
+      (when project-dir
+        ;; Create a .projectile file to mark it as a project
+        (let ((projectile-file (expand-file-name ".projectile" project-dir)))
+          (unless (file-exists-p projectile-file)
+            (write-region "" nil projectile-file)))
+        (projectile-add-known-project project-dir)
+        (setq lmdn/project-root-directory project-dir)
+        (projectile-switch-project-by-name project-dir)
+        (when (treemacs-is-treemacs-window-selected?)
+          (treemacs-quit))
+        (lmdn/treemacs-toggle)
+        (message "Imported project: %s" project-dir)))
     (message "No directory selected")))

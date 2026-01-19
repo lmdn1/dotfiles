@@ -5,7 +5,7 @@
   "Open vterm in project root directory"
   (interactive)
   (let ((default-directory (if (boundp 'lmdn/project-root-directory)
-                               lmdn/project-root-directory
+                             lmdn/project-root-directory
                              default-directory)))
     (vterm-other-window)))
 
@@ -14,9 +14,9 @@
   (interactive)
   (let ((vterm-buffer (get-buffer "*vterm*")))
     (if (and vterm-buffer (get-buffer-window vterm-buffer))
-        (delete-windows-on vterm-buffer)
+      (delete-windows-on vterm-buffer)
       (if vterm-buffer
-          (pop-to-buffer vterm-buffer)
+        (pop-to-buffer vterm-buffer)
         (lmdn/vterm-project)))))
 
 (require 'vterm)

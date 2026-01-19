@@ -32,7 +32,7 @@
       lsp-signature-auto-activate nil)
 
 ;; Performance optimizations
-(setq lsp-idle-delay 0.1)
+(setq lsp-idle-delay 0)
 (setq lsp-log-io nil)
 
 ;; LSP UI settings
@@ -64,8 +64,8 @@
 (with-eval-after-load 'lsp-mode
   (setq lsp-clients-clangd-args
         '("--background-index"
-	  "--all-scopes-completion"
-	  "--limit-results=0"
+          "--all-scopes-completion"
+          "--limit-results=0"
           "--clang-tidy"
           "--header-insertion=iwyu"
           "--completion-style=detailed"
@@ -92,5 +92,5 @@
 
 (with-eval-after-load 'rustic
   (setq rustic-lsp-client 'lsp-mode
-	rustic-format-on-save t
-	rustic-indent-method 'rustfmt))
+        rustic-format-on-save t
+        rustic-indent-method 'rustfmt))
