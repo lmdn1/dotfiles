@@ -28,7 +28,7 @@ white = "0xe5e5e5"
 yellow = "0xcdcd00"
 
 [colors.primary]
-background = "0x1B141E"
+background = "0x000000"
 foreground = "0xffffff"
 
 [cursor]
@@ -45,7 +45,7 @@ render_timer = false
 TERM = "xterm-256color"
 
 [font]
-size = 10.0
+size = 17.0
 
 [font.bold]
 family = "libertine-with-symbols"
@@ -346,7 +346,7 @@ program = "/usr/bin/zsh"
 [window]
 decorations = "full"
 dynamic_padding = false
-opacity = 0.8
+opacity = 1
 startup_mode = "Windowed"
 
 [window.dimensions]

@@ -4,11 +4,11 @@
 
 (unless (or suffering-mode-gui macbook-mode)
   ;; Transparency
-  (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
-  (add-to-list 'default-frame-alist '(alpha . (80 . 80)))
+  (set-frame-parameter (selected-frame) 'alpha '(100 . 100))
+  (add-to-list 'default-frame-alist '(alpha . (100 . 100)))
 
-  (set-face-background 'default "#1B141E")
-  (set-face-background 'fringe "#1B141E")
+  (set-face-background 'default "#000000")
+  (set-face-background 'fringe "#000000")
   (set-face-background 'mode-line "#291F2D")
   (set-face-background 'mode-line-inactive "#1B141E")
   (set-face-background 'line-number "#1B141E")
