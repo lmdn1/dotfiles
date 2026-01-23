@@ -158,7 +158,7 @@ local plugins = {
   },
   {
     "stevearc/oil.nvim", opts = {
-      default_file_explorer = false,
+      default_file_explorer = true,
       skip_confirm_for_simple_edits = true,
     },
   },
