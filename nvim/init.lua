@@ -222,6 +222,20 @@ local join_existing_term = function()
   vim.cmd("botright 10split | terminal")
 end
 
+vim.api.nvim_create_user_command('TabMode', function(opts)
+  local size = opts.args
+  if size == "t" then
+    size = 2
+    vim.opt.expandtab = false
+  else
+    size = tonumber(size)
+    vim.opt.expandtab = true
+  end
+  vim.opt.tabstop     = size
+  vim.opt.softtabstop = size
+  vim.opt.shiftwidth  = size
+end, { nargs = 1 })
+
 -- Keymaps --
 local opts = { noremap = true, silent = true }
 local keymaps = {
