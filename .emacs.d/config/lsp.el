@@ -1,6 +1,5 @@
 (require 'lsp-mode)
 (require 'lsp-ui)
-(require 'posframe)
 
 (setq lsp-completion-provider :none
       lsp-headerline-breadcrumb-enable nil
@@ -44,8 +43,7 @@
 ;; Floating function signatures
 (add-hook 'lsp-mode-hook #'lsp-signature-mode)
 (setq lsp-signature-auto-activate t
-      lsp-signature-render-documentation t
-      lsp-signature-function 'lmdn/show-signature-posframe)
+      lsp-signature-render-documentation t)
 
 ;; Enable LSP + completion mode (Doom's approach)
 (dolist (hook '(c-mode-hook

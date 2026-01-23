@@ -22,7 +22,6 @@
                          treemacs-magit
                          treemacs-projectile
                          which-key
-                         posframe
                          smartparens
                          lsp-mode
                          lsp-ui
@@ -72,6 +71,10 @@
 ;; WSL clipboard
 (if suffering-mode
     (load "wsl-clipboard"))
+
+;; OSC 52 clipboard for SSH/terminal (when not in WSL)
+(when (and nw-mode (not suffering-mode))
+  (load "osc52-clipboard"))
 
 ;; Terminal mode fixes
 (when nw-mode

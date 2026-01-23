@@ -8,6 +8,7 @@
   (evil-define-key 'normal 'global (kbd "<leader>cc") 'compile)
   (evil-define-key 'normal 'global (kbd "<leader>rc") 'recompile)
   (evil-define-key 'normal 'global (kbd "<leader>wq") 'delete-window)
+  (evil-define-key 'normal 'global (kbd "<leader>ww") 'delete-other-windows)
   (evil-define-key 'normal 'global (kbd "<leader>-") 'split-window-below)
   (evil-define-key 'normal 'global (kbd "<leader>=") 'split-window-right)
   (evil-define-key 'normal 'global (kbd "<leader>;") 'comment-dwim)
@@ -32,6 +33,7 @@
   (evil-define-key 'normal 'global (kbd "<leader>pd") 'projectile-find-dir)
   (evil-define-key 'normal 'global (kbd "<leader>pr") 'projectile-recentf)
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'projectile-ripgrep)
+  (evil-define-key 'normal 'global (kbd "<leader>fg") 'projectile-ripgrep)
   (evil-define-key 'normal 'global (kbd "<leader>pa") 'projectile-ag)
   (evil-define-key 'normal 'global (kbd "<leader>pp") 'projectile-switch-project)
   (evil-define-key 'normal 'global (kbd "<leader>pb") 'projectile-switch-to-buffer)
@@ -41,9 +43,21 @@
 (with-eval-after-load 'lsp-mode
   (evil-define-key 'normal 'global (kbd "<leader>cr") 'lsp-rename)
   (evil-define-key 'normal 'global (kbd "<leader>ca") 'lsp-execute-code-action)
+  (evil-define-key 'normal 'global (kbd "<leader>cf") 'lsp-format-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader>xx") 'flymake-show-project-diagnostics)
   (evil-define-key 'normal 'global (kbd "gd") 'lsp-find-definition)
   (evil-define-key 'normal 'global (kbd "gD") 'lsp-find-declaration)
-  (evil-define-key 'normal 'global (kbd "gr") 'lsp-find-references)))
+  (evil-define-key 'normal 'global (kbd "gy") 'lsp-find-type-definition)
+  (evil-define-key 'normal 'global (kbd "gi") 'lsp-find-implementation)
+  (evil-define-key 'normal 'global (kbd "gr") 'lsp-find-references)
+  (evil-define-key 'normal 'global (kbd "K") 'lmdn/lsp-show-hover))
+
+(defun lmdn/lsp-show-hover ()
+  "Show LSP hover docs and focus the window."
+  (interactive)
+  (lsp-describe-thing-at-point)
+  (when-let ((win (get-buffer-window "*lsp-help*")))
+    (select-window win))))
 
 ;; Treemacs keybinds
 (with-eval-after-load 'treemacs
