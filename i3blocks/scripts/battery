@@ -1,8 +1,10 @@
 #!/bin/bash
 
 battery_state=$(cat /sys/class/power_supply/BAT0/status)
+battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
 
-if [[ "${battery_state}" == "Discharging" || "${battery_state}" == "Charging" ]]; then
-  battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
+if [[ "${battery_state}" == "Charging" ]]; then
+  echo "Bat ${battery_percent}% +"
+elif [[ "${battery_state}" == "Discharging" ]]; then
   echo "Bat ${battery_percent}%"
 fi
