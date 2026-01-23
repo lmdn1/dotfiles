@@ -76,8 +76,8 @@
 
 ;; -nw mode support
 (unless (display-graphic-p)
-  (when (fboundp 'corfu-terminal-mode)
-    (corfu-terminal-mode +1)))
+  (require 'corfu-terminal)
+  (corfu-terminal-mode +1))
 
 (with-eval-after-load 'cape
                       (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)

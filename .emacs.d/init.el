@@ -12,31 +12,33 @@
 (defvar lmdn/default-font-height 180 "Default font height.")
 
 (defconst dependencies '(evil
-			 evil-commentary
-			 evil-surround
-			 undo-fu
-			 magit
-			 projectile
-			 treemacs
-			 treemacs-evil
-			 treemacs-magit
-			 treemacs-projectile
-			 which-key
-			 posframe
-			 smartparens
-			 lsp-mode
-			 lsp-ui
-			 rustic
-			 go-mode
-			 lsp-pyright
-			 vertico
-			 orderless
-			 marginalia
-			 consult
-			 corfu
-			 kind-icon
-			 cape
-			 vterm)
+                         evil-commentary
+                         evil-surround
+                         undo-fu
+                         magit
+                         projectile
+                         treemacs
+                         treemacs-evil
+                         treemacs-magit
+                         treemacs-projectile
+                         which-key
+                         posframe
+                         smartparens
+                         lsp-mode
+                         lsp-ui
+                         rustic
+                         go-mode
+                         lsp-pyright
+                         vertico
+                         orderless
+                         marginalia
+                         consult
+                         corfu
+                         corfu-terminal
+                         kind-icon
+                         cape
+                         vterm
+                         fold-this)
   "Packages being used in config.")
 
 (defconst suffering-mode
