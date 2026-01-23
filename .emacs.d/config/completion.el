@@ -75,7 +75,7 @@
 (add-hook 'evil-ex-mode-hook (lambda () (corfu-mode -1)))
 
 ;; -nw mode support
-(unless (display-graphic-p)
+(when nw-mode
   (require 'corfu-terminal)
   (corfu-terminal-mode +1))
 

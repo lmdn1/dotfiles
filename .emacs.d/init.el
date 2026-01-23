@@ -52,6 +52,9 @@
        (display-graphic-p))
   "Non-nil if running in WSL with X forwarding.")
 
+(defconst nw-mode (not (display-graphic-p))
+  "Non-nil if running in terminal mode (-nw).")
+
 (defconst macbook-mode
   (string= (system-name) "shitbook-pro")
   "Non-nil if matching my MBP hostname.")
@@ -71,7 +74,7 @@
     (load "wsl-clipboard"))
 
 ;; Terminal mode fixes
-(when (not (display-graphic-p))
+(when nw-mode
   (tooltip-mode -1)
   (setq tooltip-use-echo-area t
 	mouse-drag-copy-region nil
@@ -85,7 +88,7 @@
 (scroll-bar-mode -1)
 (fringe-mode 1)
 (global-font-lock-mode 1)
-(when (display-graphic-p)
+(unless nw-mode
   (xterm-mouse-mode 1))
 
 ;; Unfuck scrolling

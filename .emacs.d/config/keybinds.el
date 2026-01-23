@@ -74,7 +74,13 @@
 (global-set-key (kbd "C-<down>")
   (lmdn/evil-n-or-i-command #'forward-paragraph #'windmove-down))
 
-(when (display-graphic-p)
+;; Window resize with Shift+arrows
+(global-set-key (kbd "S-<left>") (lambda () (interactive) (shrink-window-horizontally 2)))
+(global-set-key (kbd "S-<right>") (lambda () (interactive) (enlarge-window-horizontally 2)))
+(global-set-key (kbd "S-<up>") (lambda () (interactive) (shrink-window 2)))
+(global-set-key (kbd "S-<down>") (lambda () (interactive) (enlarge-window 2)))
+
+(unless nw-mode
   (global-set-key (kbd "C-=") #'lmdn/zoom-in)
   (global-set-key (kbd "C--") #'lmdn/zoom-out)
   (global-set-key (kbd "C-0") #'lmdn/zoom-reset))
