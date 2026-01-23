@@ -53,6 +53,9 @@ bindkey "^[[3;5~" kill-word        # Ctrl + Delete
 bindkey "^[[1;5C" forward-word     # Ctrl + RArrow
 bindkey "^[[1;5D" backward-word    # Ctrl + LArrow
 
+# Explicitly set for tmux
+bindkey '^R' history-incremental-pattern-search-backward
+
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'e' edit-command-line
