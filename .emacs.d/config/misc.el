@@ -11,10 +11,10 @@
 (setq show-paren-delay 0)
 
 ;; Basic pairing
-(sp-pair "(" ")" :wrap "M-(")
-(sp-pair "[" "]" :wrap "M-[")
-(sp-pair "{" "}" :wrap "M-{")
-(sp-pair "\"" "\"" :wrap "M-\"")
+(sp-pair "(" ")")
+(sp-pair "[" "]")
+(sp-pair "{" "}")
+(sp-pair "\"" "\"")
 
 ;; C-like syntax
 (sp-with-modes '(c-mode c++-mode go-mode rustic-mode javascript-mode)

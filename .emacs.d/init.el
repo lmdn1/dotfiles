@@ -83,7 +83,8 @@
 (scroll-bar-mode -1)
 (fringe-mode 1)
 (global-font-lock-mode 1)
-(xterm-mouse-mode 1)
+(when (display-graphic-p)
+  (xterm-mouse-mode 1))
 
 ;; Unfuck scrolling
 (setq scroll-margin 5

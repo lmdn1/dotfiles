@@ -73,9 +73,11 @@
   (lmdn/evil-n-or-i-command #'backward-paragraph #'windmove-up))
 (global-set-key (kbd "C-<down>")
   (lmdn/evil-n-or-i-command #'forward-paragraph #'windmove-down))
-(global-set-key (kbd "C-=") #'lmdn/zoom-in)
-(global-set-key (kbd "C--") #'lmdn/zoom-out)
-(global-set-key (kbd "C-0") #'lmdn/zoom-reset)
+
+(when (display-graphic-p)
+  (global-set-key (kbd "C-=") #'lmdn/zoom-in)
+  (global-set-key (kbd "C--") #'lmdn/zoom-out)
+  (global-set-key (kbd "C-0") #'lmdn/zoom-reset))
 
 (defun lmdn/dired-project ()
   "Open dired in project root, or PWD if not in a project."
