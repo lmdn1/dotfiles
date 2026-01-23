@@ -23,8 +23,10 @@ alias cd..="cd .."
 alias pls="sudo"
 alias please="sudo"
 alias nano="nvim"
+alias qq="&>/dev/null"
+alias e="emacs -nw"
+alias em="emacs -nw"
 alias v="nvim"
-alias vi="nvim"
 alias v.="nvim ."
 alias ta="tmux a"
 alias to="tmux a -t"
@@ -119,3 +121,6 @@ touch "${HOME}/.parallel/will-cite"
 
 # Machine specific (PATH, etc)
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# Prefer symlink
+qq unalias vi
