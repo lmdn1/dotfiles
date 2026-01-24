@@ -36,6 +36,7 @@ vim.opt.wildmenu = true
 vim.opt.wildmode = { "longest:full", "full" }
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.hidden = true
+vim.opt.shortmess:append("I")
 
 -- Search --
 vim.opt.ignorecase = true
