@@ -241,6 +241,16 @@ mode "$power_profile_select" {
   bindsym Escape mode "default"
 }
 
+bindsym $mod+Control+8 mode "$screen_saver_select"
+set $screen_saver_select Screen off on inactivity: (1) On, (2) Off
+mode "$screen_saver_select" {
+  bindsym 1 exec --no-startup-id xset s on +dpms, mode "default"
+  bindsym 2 exec --no-startup-id xset s off -dpms, mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
 bindsym $mod+Control+7 mode "$keyboard_select"
 set $keyboard_select Keyboard: (1) GB, (2) US
 mode "$keyboard_select" {
