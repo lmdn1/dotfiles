@@ -17,7 +17,7 @@ vim.opt.background = "dark"
 vim.opt.list = true
 vim.opt.listchars = {
   trail = '·',
-  tab = '⇥ '
+  tab = '  '
 }
 
 -- Behavior --
@@ -237,6 +237,14 @@ vim.api.nvim_create_user_command('TabMode', function(opts)
   vim.opt.shiftwidth  = size
 end, { nargs = 1 })
 
+local toggle_tab_chars = function()
+  if vim.opt.listchars:get().tab == '⇥ ' then
+    vim.opt.listchars = { trail = '·', tab = "  " }
+  else
+    vim.opt.listchars = { trail = '·', tab = '⇥ ' }
+  end
+end
+
 -- Keymaps --
 local opts = { noremap = true, silent = true }
 local keymaps = {
@@ -297,11 +305,14 @@ local keymaps = {
   { "n", "<leader>fg", ":Telescope live_grep<CR>" },
   { "n", "<leader>bb", ":Telescope buffers<CR>" },
   { "n", "<leader>xx", ":Telescope diagnostics<CR>" },
+  { "n", "<leader>XX", vim.diagnostic.setloclist },
 
   { "n", "<leader>gg", ":tabnew | Git | only<CR>" },
   { "n", "<leader>gs", ":Telescope git_status<CR>" },
   { "n", "<leader>gc", ":Git commit<CR>" },
   { "n", "<leader>gv", ":Gvdiffsplit<CR>" },
+
+  { "n", "<leader>lc", toggle_tab_chars },
 
   { "n", "<leader>u", ":UndotreeToggle<CR>" },
   { "n", "<leader>e", ":Neotree toggle<CR>" },
